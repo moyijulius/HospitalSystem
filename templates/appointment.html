@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2> Appointment</h2>
+
+<div class="appointment-form">
+    <form method="POST">
+        {{ form.hidden_tag() }}
+        
+        <!-- Pre-select patient -->
+        <p>
+            {{ form.patient_id.label }} 
+            {{ form.patient_id(class="form-control") }}  <!-- Flask-WTF manages selected value -->
+        </p>
+        
+        <!-- Pre-select doctor -->
+        <p>
+            {{ form.doctor_id.label }} 
+            {{ form.doctor_id(class="form-control") }}  <!-- Flask-WTF manages selected value -->
+        </p>
+        
+        <!-- Pre-fill appointment date using Flask-WTF DateField -->
+        <p>
+            {{ form.appointment_date.label }} 
+            {{ form.appointment_date(class="form-control") }}  <!-- Use Flask-WTF's DateField -->
+        </p>
+
+        <!-- Submit button -->
+        <p>
+            {{ form.submit(class='submit-btn') }}
+        </p>
+    </form>
+</div>
+
+<!-- View Appointments Button -->
+<div style="text-align: center; margin-top: 20px;">
+    <a href="{{ url_for('appointment_table') }}" class="btn btn-secondary ">View Appointments</a>
+</div>
+
+{% endblock %}

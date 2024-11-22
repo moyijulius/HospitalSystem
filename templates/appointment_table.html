@@ -1,0 +1,60 @@
+{% extends 'base.html' %} 
+
+{% block content %}
+<h2>Scheduled Appointments</h2>
+
+<!-- Appointments Table -->
+<table class="appointments-table">
+    <thead>
+        <tr>
+            <th>Appointment ID</th>
+            <th>Patient Name</th>
+            <th>Doctor Name</th>
+            <th>Appointment Date</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for appointment in appointments %}
+        <tr>
+            <td>{{ appointment.id }}</td>
+            <td>{{ appointment.patient.name }}</td> <!-- Show patient name instead of ID -->
+            <td>{{ appointment.doctor.name }}</td> <!-- Show doctor name instead of ID -->
+            <td>{{ appointment.appointment_date }}</td>
+            <td class="actions-column">
+               <a href="{{ url_for('appointment', appointment_id=appointment.id) }}" class="btn btn-primary">Edit</a>
+
+              <button class="btn btn-danger" onclick="dischargeAppointment('{{ url_for('discharge_appointment', appointment_id=appointment.id) }}')">Discharge</button>
+
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<script>
+    function dischargeAppointment(url) {
+        if (confirm("Are you sure you want to discharge this appointment?")) {
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    window.location.reload(); // Reloads the page if deletion is successful
+                } else {
+                    alert("Failed to discharge appointment.");
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        } else {
+            console.log("Discharge cancelled.");
+        }
+    }
+</script>
+
+
+
+{% endblock %}

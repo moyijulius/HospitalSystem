@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- MDBootstrap CSS (if you're using MDBootstrap) -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/5.3.0/css/mdb.min.css" rel="stylesheet">
+
+    <!-- Font Awesome (for icons) -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<section class="vh-100" style="background-color: #9A616D;">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col col-xl-10">
+        <div class="card" style="border-radius: 1rem;">
+          <div class="row g-0">
+            <div class="col-md-6 col-lg-5 d-none d-md-block">
+              <img src="{{ url_for('static', filename='hosi1.jpg') }}" alt="login form" class="img-fluid image1" style="border-radius: 1rem 0 0 1rem;" />
+            </div>
+            <div class="col-md-6 col-lg-7 d-flex align-items-center">
+              <div class="card-body p-4 p-lg-5 text-black">
+
+                <form action="{{ url_for('login') }}" method="post">
+                 {{ form.hidden_tag() }} 
+                  <div class="d-flex align-items-center mb-3 pb-1">
+                  <i class="fa-sharp-duotone fa-solid fa-hospital"></i>
+                    
+                  </div>
+
+                  <h5 class="fw-normal mb-3 pb-3 text-info" style="letter-spacing: 1px;">Sign into your account</h5>
+
+                  {% with messages = get_flashed_messages(with_categories=true) %}
+                      {% if messages %}
+                          {% for category, message in messages %}
+                              <div class="flash-message {{ category }}">{{ message }}</div>
+                          {% endfor %}
+                      {% endif %}
+                  {% endwith %}
+
+                  <div data-mdb-input-init class="form-outline mb-4">
+                    <input type="text" id="form2Example17" name="username" class="form-control form-control-lg" required />
+                    <label class="form-label" for="form2Example17">Username</label>
+                  </div>
+
+                  <div data-mdb-input-init class="form-outline mb-4">
+                    <input type="password" id="form2Example27" name="password" class="form-control form-control-lg" required />
+                    <label class="form-label" for="form2Example27">Password</label>
+                  </div>
+
+                  <div class="pt-1 mb-4">
+                    <button data-mdb-button-init data-mdb-ripple-init class="btn btn-dark btn-lg btn-block" type="submit">Login</button>
+                  </div>
+
+                  <a class="small text-muted" href="#!">Forgot password?</a>
+                  <p class="mb-5 pb-lg-2" style="color: #393f81;">Don't have an account? <a href="{{ url_for('register') }}" style="color: #393f81;">Register here</a></p>
+                  <a href="#!" class="small text-muted">Terms of use.</a>
+                  <a href="#!" class="small text-muted">Privacy policy</a>
+                </form>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Bootstrap JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+
+<!-- MDBootstrap JS (if using MDBootstrap) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/5.3.0/js/mdb.min.js"></script>
+
+<!-- Font Awesome (for icons) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
+<script src="{{ url_for('static', filename='script/main.js') }}"></script>
+
+</body>
+</html>
